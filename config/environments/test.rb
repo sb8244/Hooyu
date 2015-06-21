@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.neo4j.session_path = 'http://localhost:7475'
+  config.neo4j.session_options = { basic_auth: { username: 'neo4j', password: 'password' } }
 end
