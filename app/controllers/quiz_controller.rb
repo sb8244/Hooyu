@@ -12,6 +12,14 @@ class QuizController < ApplicationController
   end
 
   def next_question_type
-    Question::Name
+    @next_question_type ||= question_order[question_number - 1]
+  end
+
+  def question_order
+    [Question::Name, Question::Department]
+  end
+
+  def question_number
+    session[:question] || 1
   end
 end
