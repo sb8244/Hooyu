@@ -4,7 +4,7 @@ class Question::Name < Question
   end
 
   def choices
-    Person.all.pluck("n.first_name + ' ' + left(n.last_name, 1)").sample(4)
+    Person.all.to_a.sample(4).map{ |p| p.display_name }
   end
 
   def answer

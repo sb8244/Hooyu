@@ -28,6 +28,6 @@ class Person
   end
 
   def display_name
-    "#{first_name} #{last_name.first}"
+    "#{first_name} #{last_name.first}."
   end
 end
