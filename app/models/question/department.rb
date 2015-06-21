@@ -3,6 +3,7 @@ class Question::Department < Question
     "What is #{target.first_name}'s department?"
   end
 
+  # TODO: Pick 4 random departments
   def choices
     ["Todo"]
   end
