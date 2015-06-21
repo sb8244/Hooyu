@@ -19,4 +19,28 @@ RSpec.describe QuizController, :type => :controller do
       end
     end
   end
+
+  describe "POST create" do
+    context "with a valid configuration" do
+      before(:each) {
+        session[:target_id] = people[0].id
+        session[:correct_answer] = "test"
+      }
+
+      context "with a correct answer" do
+        it "increments the question_number by 1" do
+          expect {
+            post :create, answer: "test"
+          }.to change{ session[:question] }.from(nil).to(2)
+        end
+
+        it "wraps question_number from 2 -> 1" do
+          session[:question] = 2
+          expect {
+            post :create, answer: "test"
+          }.to change{ session[:question] }.from(2).to(1)
+        end
+      end
+    end
+  end
 end

@@ -5,6 +5,12 @@ class QuizController < ApplicationController
     @choices = quiz.choices
   end
 
+  def create
+    quiz_judge.call
+
+    redirect_to action: "show"
+  end
+
   private
 
   def quiz
@@ -21,5 +27,20 @@ class QuizController < ApplicationController
 
   def question_number
     session[:question] || 1
+  end
+
+  def quiz_judge
+    @quiz_judge ||= begin
+      target = Person.find(session[:target_id])
+      QuizJudge.new(current_person,
+                    target,
+                    correct: session[:correct_answer],
+                    choice: params[:answer],
+                    on_right: method(:on_right_answer))
+    end
+  end
+
+  def on_right_answer
+    session[:question] = (question_number % question_order.count) + 1
   end
 end
