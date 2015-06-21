@@ -77,10 +77,24 @@ RSpec.describe QuizController, :type => :controller do
             }.not_to change{ PersonConnection.all.count }.from(1)
           end
 
-          it "increments the weight" do
-            expect {
-              post :create, answer: "test"
-            }.to change{ person.rels.first.weight }.from(1).to(2)
+          context "on question 1" do
+            before(:each) { session[:question] = 1 }
+
+            it "doesn't increment the weight because it is beyond the question number" do
+              expect {
+                post :create, answer: "test"
+              }.not_to change{ person.rels.first.weight }.from(1)
+            end
+          end
+
+          context "on question 2" do
+            before(:each) { session[:question] = 2 }
+
+            it "does increment the weight" do
+              expect {
+                post :create, answer: "test"
+              }.to change{ person.rels.first.weight }.from(1).to(2)
+            end
           end
         end
       end

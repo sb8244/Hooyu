@@ -17,13 +17,13 @@ class Person
   has_many :out, :knows, rel_class: PersonConnection, model_class: self
   has_many :in, :known_by, rel_class: PersonConnection, model_class: self
 
-  def connect_to(person)
+  def connect_to(person, weight: 1)
     existing_connection = self.rels(between: person, type: "knows").first
 
     if existing_connection
-      existing_connection.update!(weight: existing_connection.weight + 1)
+      existing_connection.update!(weight: weight)
     else
-      self.create_rel("knows", person, weight: 1)
+      self.create_rel("knows", person, weight: weight)
     end
   end
 end

@@ -47,8 +47,8 @@ class QuizController < ApplicationController
 
   def handle_correct_answer(from, to, correct_answer)
     flash[:success] = "You got it!"
+    from.connect_to(to, weight: question_number)
     session[:question] = question_number + 1
-    from.connect_to(to)
     reset_quiz_flow if session[:question] > question_order.count
   end
 
