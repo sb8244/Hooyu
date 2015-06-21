@@ -1,0 +1,60 @@
+// Layout
+
+#person-image-container {
+  @include make-row();
+  height: 40%;
+  overflow: hidden;
+
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+#question-container {
+  @include make-row();
+  height: 60%;
+  overflow: hidden;
+
+  header {
+    @include make-xs-column(12);
+    font-size: 1.8em;
+    height: 2em;
+    line-height: 2em;
+
+    color: white;
+    background-color: rgba(0,0,0, 0.5);
+  }
+
+  ul {
+    @include list-unstyled();
+    @include make-xs-column(12);
+
+    font-size: 2em;
+
+    li {
+      height: 2em;
+      line-height: 2em;
+      margin: 14px;
+      text-align: center;
+
+      color: white;
+      background-color: rgba(0,0,0,0.5);
+    }
+  }
+}
+
+
+// Generic Helpers
+
+.full-width-img-wrapper {
+  @include make-xs-column(12);
+  height: 100%;
+
+  img {
+    margin: 0 auto;
+    height: 100%;
+  }
+}
+
+[data-react-class] {
+  display: inline;
+}

@@ -1,0 +1,39 @@
+@import "bootstrap";
+@import "main";
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body:before {
+  $blur: 8px;
+  content: "";
+  position: fixed;
+
+  // Ensure that the blur doesn't cause the edges to fade within view
+  left: -$blur*2;
+  right: -$blur*2;
+  top: -$blur*2;
+  bottom: -$blur*2;
+  z-index: -1;
+
+  display: block;
+  background-image: image-url('background.jpg');
+
+  -webkit-filter: blur($blur);
+  -moz-filter: blur($blur);
+  -o-filter: blur($blur);
+  -ms-filter: blur($blur);
+  filter: blur($blur);
+}
+
+body {
+  z-index: 0;
+}
+
+.container-fluid {
+  height: 100%;
+}
