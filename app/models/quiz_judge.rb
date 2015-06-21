@@ -3,6 +3,7 @@ class QuizJudge
 
   def initialize(person, target, correct:, choice:, on_right: lambda {}, on_wrong: lambda {})
     @correct = correct == choice
+    @answer = correct
     @on_right = on_right
     @on_wrong = on_wrong
     @person = person
@@ -12,11 +13,13 @@ class QuizJudge
   def call
     if correct
       # increase weight of person -> target
-      on_right.call
+      on_right.call(@answer)
     else
       # decrease weight of person -> target
-      on_wrong.call
+      on_wrong.call(@answer)
     end
+
+    correct
   end
 
   private

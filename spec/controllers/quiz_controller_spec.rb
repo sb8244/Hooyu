@@ -21,7 +21,7 @@ RSpec.describe QuizController, :type => :controller do
   end
 
   describe "POST create" do
-    context "with a valid configuration" do
+    context "with a valid session" do
       before(:each) {
         session[:target_id] = people[0].id
         session[:correct_answer] = "test"
@@ -34,11 +34,53 @@ RSpec.describe QuizController, :type => :controller do
           }.to change{ session[:question] }.from(nil).to(2)
         end
 
-        it "wraps question_number from 2 -> 1" do
-          session[:question] = 2
+        it "sets the flash[:success]" do
           expect {
             post :create, answer: "test"
+          }.to change{ flash[:success] }.from(nil).to("You got it!")
+        end
+
+        context "with the last question" do
+          before(:each) { session[:question] = 2 }
+
+          it "wraps question_number to 1" do
+            expect {
+              post :create, answer: "test"
+            }.to change{ session[:question] }.from(2).to(1)
+          end
+
+          it "unsets the target_id" do
+            expect {
+              post :create, answer: "test"
+            }.to change{ session[:target_id] }.from(people[0].id).to(nil)
+          end
+        end
+      end
+
+      context "with an incorrect answer" do
+        it "sets the question_number to 1" do
+          expect {
+            post :create, answer: "wrong"
+          }.to change{ session[:question] }.from(nil).to(1)
+        end
+
+        it "sets the question_number to 1" do
+          session[:question] = 2
+          expect {
+            post :create, answer: "wrong"
           }.to change{ session[:question] }.from(2).to(1)
+        end
+
+        it "unsets the target_id" do
+          expect {
+            post :create, answer: "wrong"
+          }.to change{ session[:target_id] }.from(people[0].id).to(nil)
+        end
+
+        it "sets the flash[:error]" do
+          expect {
+            post :create, answer: "wrong"
+          }.to change{ flash[:error] }.from(nil).to("Not quite...The answer is test.")
         end
       end
     end
