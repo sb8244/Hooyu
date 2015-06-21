@@ -40,14 +40,15 @@ class QuizController < ApplicationController
     end
   end
 
-  def handle_wrong_answer(correct_answer)
+  def handle_wrong_answer(from, to, correct_answer)
     flash[:error] = "Not quite...The answer is #{correct_answer}."
     reset_quiz_flow
   end
 
-  def handle_correct_answer(correct_answer)
+  def handle_correct_answer(from, to, correct_answer)
     flash[:success] = "You got it!"
     session[:question] = question_number + 1
+    from.connect_to(to)
     reset_quiz_flow if session[:question] > question_order.count
   end
 

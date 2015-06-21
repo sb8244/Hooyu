@@ -13,10 +13,10 @@ class QuizJudge
   def call
     if correct
       # increase weight of person -> target
-      on_right.call(@answer)
+      on_right.call(person, target, @answer)
     else
       # decrease weight of person -> target
-      on_wrong.call(@answer)
+      on_wrong.call(person, target, @answer)
     end
 
     correct

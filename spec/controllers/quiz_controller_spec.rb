@@ -55,6 +55,34 @@ RSpec.describe QuizController, :type => :controller do
             }.to change{ session[:target_id] }.from(people[0].id).to(nil)
           end
         end
+
+        context "without an existing PersonConnection" do
+          it "creates a PersonConnection" do
+            expect {
+              post :create, answer: "test"
+            }.to change{ PersonConnection.all.count }.by(1)
+
+            expect(PersonConnection.first.from_node).to eq(person)
+            expect(PersonConnection.first.to_node).to eq(people[0])
+            expect(PersonConnection.first.weight).to eq(1)
+          end
+        end
+
+        context "with an existing PersonConnection" do
+          before(:each) { person.connect_to(people[0]) }
+
+          it "doesn't create a new PersonConnection" do
+            expect {
+              post :create, answer: "test"
+            }.not_to change{ PersonConnection.all.count }.from(1)
+          end
+
+          it "increments the weight" do
+            expect {
+              post :create, answer: "test"
+            }.to change{ person.rels.first.weight }.from(1).to(2)
+          end
+        end
       end
 
       context "with an incorrect answer" do
