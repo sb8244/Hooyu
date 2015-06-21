@@ -26,4 +26,8 @@ class Person
       self.create_rel("knows", person, weight: weight)
     end
   end
+
+  def display_name
+    "#{first_name} #{last_name.first}"
+  end
 end

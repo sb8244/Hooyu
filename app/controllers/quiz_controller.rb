@@ -3,6 +3,9 @@ class QuizController < ApplicationController
     @image_src = quiz.image
     @question = quiz.question
     @choices = quiz.choices
+
+    session[:target_id] = target.id
+    session[:correct_answer] = quiz.answer
   end
 
   def create
@@ -12,8 +15,16 @@ class QuizController < ApplicationController
 
   private
 
+  def target
+    @target ||= if session[:target_id]
+                  Person.find(session[:target_id])
+                else
+                  Person.where("result_person.uuid <> {uuid}").params(uuid: current_person.uuid).to_a.sample
+                end
+  end
+
   def quiz
-    @quiz ||= Quiz.new(current_person, question_type: next_question_type)
+    @quiz ||= Quiz.new(current_person, question_type: next_question_type, target: target)
   end
 
   def next_question_type

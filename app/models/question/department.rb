@@ -6,4 +6,8 @@ class Question::Department < Question
   def choices
     ["Todo"]
   end
+
+  def answer
+    target.department
+  end
 end
