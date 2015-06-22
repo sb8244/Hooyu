@@ -1,7 +1,8 @@
 class AnswersController < ApplicationController
   def create
     quiz_judger.call
-    redirect_to quiz_path
+
+    head :no_content
   end
 
   private
