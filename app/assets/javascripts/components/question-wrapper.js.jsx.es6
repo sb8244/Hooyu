@@ -3,14 +3,14 @@ class QuestionWrapper extends React.Component {
     return (
       <div>
         <header>{this.props.question}</header>
-        <ul>{this.props.choices.map(this.renderChoice)}</ul>
+        <ul>{this.props.choices.map(this.renderAnswer)}</ul>
       </div>
     );
   }
 
-  renderChoice(choice, i) {
+  renderAnswer(choice, i) {
     return (
-      <li key={i}>{choice}</li>
+      <Answer key={i} content={choice} />
     );
   }
 }
