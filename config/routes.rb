@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :quiz, only: [:show, :create]
+  resource :quiz, only: [:show]
+  resources :answers, only: [:create]
 
   root 'quiz#show'
 end
