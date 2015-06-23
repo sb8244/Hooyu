@@ -8,6 +8,7 @@ var sass = require('gulp-sass') ;
 var bower = require('gulp-bower');
 var sourcemaps = require('gulp-sourcemaps');
 var minifyCss = require('gulp-minify-css');
+var util = require('gulp-util');
 
 var bowerResolve = require('bower-resolve');
 var source = require('vinyl-source-stream');
@@ -15,7 +16,8 @@ var source = require('vinyl-source-stream');
 var config = {
   sassPath: './app/assets/stylesheets',
   bowerDir: './vendor/assets/components' ,
-  requireFiles: ['./node_modules/react/react.js']
+  requireFiles: ['./node_modules/react/react.js'],
+  production: !!util.env.production
 };
 
 gulp.task('default', ['compile-scss', 'js']);
@@ -31,7 +33,7 @@ gulp.task('compile-scss', function() { 
               config.bowerDir + '/bootstrap-sass/assets/stylesheets'
             ]
            }) )
-        .pipe(minifyCss())
+        .pipe(config.production ? minifyCss() : util.noop())
         .pipe(sourcemaps.write())
          .pipe(gulp.dest('./public/assets')); 
 });
