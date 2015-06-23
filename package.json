@@ -1,0 +1,22 @@
+{
+  "name": "hooyu",
+  "version": "0.0.1",
+  "description": "== README",
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "bower-resolve": "^2.2.1",
+    "browserify": "^10.2.4",
+    "es6ify": "^1.6.0",
+    "gulp": "^3.9.0",
+    "gulp-bower": "0.0.10",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

@@ -21,7 +21,7 @@ body:before {
   z-index: -1;
 
   display: block;
-  background-image: image-url('background.jpg');
+  background-image: url('/images/background.jpg');
 
   -webkit-filter: blur($blur);
   -moz-filter: blur($blur);

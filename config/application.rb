@@ -33,6 +33,8 @@ module Hooyu
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.assets.enabled = false
+
     config.neo4j.session_options = { basic_auth: { username: ENV['NEO4J_USER'], password: ENV['NEO4J_PASSWORD']} }
     config.neo4j.session_type = :server_db
     config.neo4j.session_path = ENV['NEO4J_URL']

@@ -1,5 +1,7 @@
 // Layout
 
+@import "bootstrap";
+
 #person-image-container {
   @include make-row();
   height: 40%;
