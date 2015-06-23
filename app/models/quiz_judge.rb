@@ -2,7 +2,7 @@ class QuizJudge
   attr_reader :correct
 
   def initialize(person, target, correct:, choice:, on_right: lambda {}, on_wrong: lambda {})
-    @correct = correct == choice
+    @correct = correct.downcase == choice.downcase
     @answer = correct
     @on_right = on_right
     @on_wrong = on_wrong

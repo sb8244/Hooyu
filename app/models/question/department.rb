@@ -5,7 +5,7 @@ class Question::Department < Question
 
   # TODO: Pick 4 random departments
   def choices
-    ["Todo"]
+    ["Engineering", "Sales", "Customer Support", "G&A"]
   end
 
   def answer
