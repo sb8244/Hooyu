@@ -4,7 +4,8 @@
   "description": "== README",
   "dependencies": {
     "lodash": "^3.9.3",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "react-notification-system": "^0.1.11"
   },
   "devDependencies": {
     "babelify": "^6.1.2",

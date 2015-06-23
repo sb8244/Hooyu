@@ -1,10 +1,18 @@
 import React from "react";
+import Notification from "react-notification-system";
 
 class Flasher extends React.Component {
+  componentDidMount() {
+    this.refs.notification.addNotification({
+      message: this.props.message,
+      level: 'success',
+      position: "bc",
+      level: this.props.success ? "success" : "error"
+    });
+  }
+
   render() {
-    return (
-      <div className="flasher">{this.props.message}</div>
-    );
+    return ( <Notification  ref="notification"/> );
   }
 }
 

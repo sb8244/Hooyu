@@ -11,6 +11,9 @@
 </head>
 <body>
   <div class="container-fluid">
+    <% if flash[:success] || flash[:error] %>
+      <%= react_component "Flasher", success: flash.key?(:success), message: flash[:success] || flash[:error] %>
+    <% end %>
     <%= yield %>
   </div>
 </body>

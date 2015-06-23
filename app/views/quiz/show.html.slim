@@ -1,6 +1,3 @@
-- if flash[:success] || flash[:error]
-  = react_component "Flasher", message: flash[:success] || flash[:error]
-
 section#person-image-container
   = react_component "PersonImage", src: @image_src
 
