@@ -1,13 +1,16 @@
-var gulp = require('gulp'), 
-    sass = require('gulp-sass') ,
-    bower = require('gulp-bower'),
-    es6ify = require('es6ify'),
-    source = require('vinyl-source-stream'),
-    browserify = require('browserify'),
-    babelify = require('babelify'),
-    rename = require('gulp-rename'),
-    sourcemaps = require('gulp-sourcemaps'),
-    bowerResolve = require('bower-resolve');
+var gulp = require('gulp');
+
+var browserify = require('browserify');
+var babelify = require('babelify');
+var watchify = require('watchify');
+
+var sass = require('gulp-sass') ;
+var bower = require('gulp-bower');
+var sourcemaps = require('gulp-sourcemaps');
+var minifyCss = require('gulp-minify-css');
+
+var bowerResolve = require('bower-resolve');
+var source = require('vinyl-source-stream');
 
 var config = {
   sassPath: './app/assets/stylesheets',
@@ -15,10 +18,17 @@ var config = {
   requireFiles: ['./node_modules/react/react.js']
 };
 
-gulp.task('default', ['compile-scss', 'compile-js']);
+gulp.task('default', ['compile-scss', 'js']);
+
+gulp.task('watch', ['watch-scss', 'watch-js']);
+
+gulp.task('watch-scss', function() {
+  gulp.watch('app/assets/stylesheets/**/*.scss', ['compile-scss']);
+});
 
 gulp.task('compile-scss', function() { 
     return gulp.src(config.sassPath + '/application.scss')
+        .on('error', function(E) { console.log(E); })
         .pipe(sourcemaps.init())
          .pipe(sass({
             errLogToConsole: true,
@@ -27,23 +37,46 @@ gulp.task('compile-scss', function() { 
               config.bowerDir + '/bootstrap-sass/assets/stylesheets'
             ]
            }) )
+        .pipe(minifyCss())
         .pipe(sourcemaps.write())
          .pipe(gulp.dest('./public/assets')); 
 });
 
-gulp.task('compile-js', function() {
-  bowerResolve.init(function () {
-    var entryFile = './app/assets/javascripts/application.js';
-    var stream = browserify(entryFile, {debug: true})
-      .require(config.requireFiles)
-      .transform(babelify)
-      .require(bowerResolve('jquery'), {expose: 'jquery'})
-      .bundle()
-      .on("error", function(err) {
-        console.log("Error : " + err.message);
-      });
-
-    stream.pipe(source('application.js'))
-      .pipe(gulp.dest('public/assets'));
-  });
+gulp.task('js', function() {
+  browserifyShare(false);
 });
+
+gulp.task('watch-js', function() {
+  browserifyShare(true);
+});
+
+function browserifyShare(watch) {
+  bowerResolve.init(function() {
+    var entryFile = './app/assets/javascripts/application.js';
+    var b = browserify(entryFile, {
+      debug: true,
+      cache: {},
+      packageCache: {},
+      fullPaths: true
+    }).require(config.requireFiles)
+      .transform(babelify)
+      .plugin('minifyify', {output: 'public/assets/application.js.map', map: '/assets/application.js.map'})
+      .require(bowerResolve('jquery'), {expose: 'jquery'});
+
+    if (watch) {
+      b = watchify(b);
+      b.on('update', function() {
+        bundleShare(b);
+      });
+    }
+
+    bundleShare(b);
+  });
+}
+
+function bundleShare(b) {
+  return b.bundle()
+    .on('error', function(E) { console.log(E); })
+    .pipe(source('application.js'))
+    .pipe(gulp.dest('public/assets'));
+}
