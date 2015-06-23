@@ -20,12 +20,6 @@ var config = {
 
 gulp.task('default', ['compile-scss', 'js']);
 
-gulp.task('watch', ['watch-scss', 'watch-js']);
-
-gulp.task('watch-scss', function() {
-  gulp.watch('app/assets/stylesheets/**/*.scss', ['compile-scss']);
-});
-
 gulp.task('compile-scss', function() { 
     return gulp.src(config.sassPath + '/application.scss')
         .on('error', function(E) { console.log(E); })
@@ -44,6 +38,12 @@ gulp.task('compile-scss', function() { 
 
 gulp.task('js', function() {
   browserifyShare(false);
+});
+
+gulp.task('watch', ['watch-scss', 'watch-js']);
+
+gulp.task('watch-scss', function() {
+  gulp.watch('app/assets/stylesheets/**/*.scss', ['compile-scss']);
 });
 
 gulp.task('watch-js', function() {
