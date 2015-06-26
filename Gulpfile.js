@@ -15,12 +15,11 @@ var source = require('vinyl-source-stream');
 
 var config = {
   sassPath: './app/assets/stylesheets',
+  jsPath: './app/assets/javascripts',
   bowerDir: './vendor/assets/components',
   requireFiles: ['./node_modules/react/react.js'],
   production: !!util.env.production
 };
-
-gulp.task('default', ['compile-scss', 'js']);
 
 gulp.task('compile-scss', function() {
   return gulp.src(config.sassPath + '/application.scss')
@@ -40,31 +39,17 @@ gulp.task('compile-scss', function() {
     .pipe(gulp.dest('./public/stylesheets'));
 });
 
-gulp.task('js', function() {
-  browserifyShare(false);
-});
-
-gulp.task('watch', ['watch-scss', 'watch-js']);
-
-gulp.task('watch-scss', function() {
-  gulp.watch('app/assets/stylesheets/**/*.scss', ['compile-scss']);
-});
-
-gulp.task('watch-js', function() {
-  browserifyShare(true);
-});
-
 function browserifyShare(watch) {
   bowerResolve.init(function() {
-    var entryFile = './app/assets/javascripts/application.js';
+    var entryFile = config.jsPath + '/application.js';
     var b = browserify(entryFile, {
-      debug: true,
+      debug: !config.production,
       cache: {},
       packageCache: {},
       fullPaths: true
     }).require(config.requireFiles)
       .transform(babelify)
-      .plugin('minifyify', {output: 'public/assets/application.js.map', map: '/assets/application.js.map'})
+      .plugin('minifyify', {output: 'public/javascripts/application.js.map', map: '/javascripts/application.js.map'})
       .require(bowerResolve('jquery'), {expose: 'jquery'});
 
     if (watch) {
@@ -82,5 +67,21 @@ function bundleShare(b) {
   return b.bundle()
     .on('error', function(E) { console.log(E); })
     .pipe(source('application.js'))
-    .pipe(gulp.dest('public/assets'));
+    .pipe(gulp.dest('public/javascripts'));
 }
+
+gulp.task('default', ['compile-scss', 'js']);
+
+gulp.task('watch', ['watch-scss', 'watch-js']);
+
+gulp.task('watch-scss', function() {
+  gulp.watch('app/assets/stylesheets/**/*.scss', ['compile-scss']);
+});
+
+gulp.task('js', function() {
+  browserifyShare(false);
+});
+
+gulp.task('watch-js', function() {
+  browserifyShare(true);
+});
