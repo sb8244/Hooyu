@@ -4,7 +4,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var watchify = require('watchify');
 
-var sass = require('gulp-sass') ;
+var sass = require('gulp-sass');
 var bower = require('gulp-bower');
 var sourcemaps = require('gulp-sourcemaps');
 var minifyCss = require('gulp-minify-css');
@@ -15,27 +15,29 @@ var source = require('vinyl-source-stream');
 
 var config = {
   sassPath: './app/assets/stylesheets',
-  bowerDir: './vendor/assets/components' ,
+  bowerDir: './vendor/assets/components',
   requireFiles: ['./node_modules/react/react.js'],
   production: !!util.env.production
 };
 
 gulp.task('default', ['compile-scss', 'js']);
 
-gulp.task('compile-scss', function() { 
-    return gulp.src(config.sassPath + '/application.scss')
-        .on('error', function(E) { console.log(E); })
-        .pipe(sourcemaps.init())
-         .pipe(sass({
-            errLogToConsole: true,
-            indentedSyntax: false,
-            includePaths: [
-              config.bowerDir + '/bootstrap-sass/assets/stylesheets'
-            ]
-           }) )
-        .pipe(config.production ? minifyCss() : util.noop())
-        .pipe(sourcemaps.write())
-         .pipe(gulp.dest('./public/assets')); 
+gulp.task('compile-scss', function() {
+  return gulp.src(config.sassPath + '/application.scss')
+    .on('error', function(E) {
+      console.log(E);
+    })
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      errLogToConsole: true,
+      indentedSyntax: false,
+      includePaths: [
+        config.bowerDir + '/bootstrap-sass/assets/stylesheets'
+      ]
+    }))
+    .pipe(config.production ? minifyCss() : util.noop())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./public/stylesheets'));
 });
 
 gulp.task('js', function() {
