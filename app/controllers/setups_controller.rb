@@ -1,9 +1,10 @@
 class SetupsController < ApplicationController
-  skip_before_filter :ensure_person
-  before_filter :ensure_user
-  before_filter :prevent_already_setup
+  before_filter :ensure_user, only: [:show]
+  before_filter :prevent_already_setup, only: [:show]
 
   def show
+    return redirect_to no_org_setup_path unless organization
+
     @departments = organization.departments
     @details = {
         first_name: current_user.first_name,
@@ -12,6 +13,9 @@ class SetupsController < ApplicationController
         organization_name: organization.name,
         department: nil
     }
+  end
+
+  def no_org
   end
 
   def create

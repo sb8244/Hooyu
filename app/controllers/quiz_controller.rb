@@ -1,4 +1,6 @@
 class QuizController < ApplicationController
+  before_filter :ensure_person
+
   def show
     @stats = { knows: current_person.knows.where("rel0.weight = 2").count, total: Person.count - 1 }
 

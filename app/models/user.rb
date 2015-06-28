@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
     data = access_token.info
 
     User.where(email: data["email"]).first_or_create!(
-       email: data["email"],
        first_name: data["first_name"],
        last_name: data["last_name"]
     )

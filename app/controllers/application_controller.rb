@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :ensure_person
-
   def current_person
     return unless current_user
 
@@ -22,6 +20,6 @@ class ApplicationController < ActionController::Base
   def ensure_user
     return if current_user
 
-    abort "no user"
+    redirect_to user_omniauth_authorize_path(provider: :google_oauth2)
   end
 end

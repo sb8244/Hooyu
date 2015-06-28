@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  before_filter :ensure_person
+
   def create
     quiz_judger.call
 
