@@ -47,8 +47,12 @@ class Bullseye
     return unless force
 
     Person.
+        query_as(:result_person).
+        with("result_person, rand() as number ORDER BY number").
         where("result_person.uuid <> {uuid}").
         params(uuid: person.uuid).
-        first
+        limit(1).
+        return(:result_person).
+        first.try!(:result_person)
   end
 end

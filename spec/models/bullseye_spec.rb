@@ -59,8 +59,10 @@ RSpec.describe Bullseye do
       context "with force" do
         subject { Bullseye.new(person, force: true) }
 
-        it "is a person" do
-          expect(subject.call).to be_a(Person)
+        it "is a random person" do
+          result = 10.times.map{ subject.call }.uniq
+          result.each{ |person| expect(person).to be_a(Person) }
+          expect(result.count).to be > 1
         end
       end
     end
