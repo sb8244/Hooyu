@@ -1,0 +1,7 @@
+<section id="person-image-container">
+  <%= react_component "PersonImage", src: @image_src %>
+</section>
+
+<section id="question-container">
+  <%= react_component "QuestionWrapper", question: @question, choices: @choices %>
+</section>
