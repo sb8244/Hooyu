@@ -1,5 +1,7 @@
 class QuizController < ApplicationController
   def show
+    return render "done" if target.nil? && !params[:continue]
+
     @image_src = quiz.image
     @question = quiz.question
     @choices = quiz.choices
@@ -14,7 +16,7 @@ class QuizController < ApplicationController
     @target ||= if session[:target_id]
                   Person.find(session[:target_id])
                 else
-                  Bullseye.new(current_person).call
+                  Bullseye.new(current_person, force: params[:continue]).call
                 end
   end
 

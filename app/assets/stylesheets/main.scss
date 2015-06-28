@@ -11,6 +11,22 @@
   padding-bottom: 5%;
 }
 
+#done-container {
+  @include make-row();
+
+  header, a {
+    @include make-xs-column(12);
+    margin-top: 20px;
+    font-size: 1.8em;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
 #question-container {
   @include make-row();
   height: 60%;
