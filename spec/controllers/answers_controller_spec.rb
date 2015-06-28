@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, :type => :controller do
-  let!(:person) { FactoryGirl.create(:person, email: "steve.bussey@salesloft.com") }
+  let(:user) { FactoryGirl.create(:user) }
+  let!(:person) { FactoryGirl.create(:person, email: "steve.bussey@salesloft.com", user_id: user.id) }
   let!(:people) { FactoryGirl.create_list(:person, 5) }
+
+  before(:each) { sign_in(user) }
 
   describe "POST create" do
     context "with a valid session" do
