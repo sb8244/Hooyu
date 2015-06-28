@@ -14,6 +14,9 @@
     <% if flash[:success] || flash[:error] %>
       <%= react_component "Flasher", success: flash.key?(:success), message: flash[:success] || flash[:error] %>
     <% end %>
+
+    <%= react_component "Logout", url: destroy_user_session_path if current_user %>
+
     <%= yield %>
   </div>
 </body>
