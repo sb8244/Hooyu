@@ -14,7 +14,7 @@ class QuizController < ApplicationController
     @target ||= if session[:target_id]
                   Person.find(session[:target_id])
                 else
-                  Person.where("result_person.uuid <> {uuid}").params(uuid: current_person.uuid).to_a.sample
+                  Bullseye.new(current_person).call
                 end
   end
 
