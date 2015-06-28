@@ -5,7 +5,11 @@ class Quiz
     @target = target
   end
 
-  delegate :image, :question, :choices, :answer, to: :question_obj
+  def image
+    target.profile_image.url
+  end
+
+  delegate :question, :choices, :answer, to: :question_obj
 
   private
 

@@ -5,7 +5,8 @@
   "dependencies": {
     "lodash": "^3.9.3",
     "react": "^0.13.3",
-    "react-notification-system": "^0.1.11"
+    "react-notification-system": "^0.1.11",
+    "react-select": "^0.5.1"
   },
   "devDependencies": {
     "babelify": "^6.1.2",

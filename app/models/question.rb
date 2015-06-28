@@ -5,10 +5,6 @@ class Question
     @target = person
   end
 
-  def image
-    target.image_url
-  end
-
   def self.question_order
     [Question::Name, Question::Department]
   end
