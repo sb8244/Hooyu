@@ -29,7 +29,7 @@
 
 #stats {
   position: absolute;
-  bottom: 15px;
+  top: 15px;
   right: 15px;
 
   padding: 5px;
@@ -42,11 +42,16 @@
   height: 60%;
   overflow: hidden;
 
-  header {
+  header, ul {
     @include make-xs-column(12);
-    font-size: 1.8em;
-    height: 2em;
-    line-height: 2em;
+    @include make-sm-column(6);
+    @include make-sm-column-offset(3);
+    font-size: 21px;
+    font-size: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+  }
+  header {
     text-align: center;
 
     color: white;
@@ -55,13 +60,8 @@
 
   ul {
     @include list-unstyled();
-    @include make-xs-column(12);
-
-    font-size: 2em;
 
     li {
-      height: 2em;
-      line-height: 2em;
       margin: 14px;
       text-align: center;
       cursor: pointer;
