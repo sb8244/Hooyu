@@ -43,7 +43,7 @@ function browserifyShare(watch) {
   bowerResolve.init(function() {
     var entryFile = config.jsPath + '/application.js';
     var b = browserify(entryFile, {
-      debug: !config.production,
+      debug: true,
       cache: {},
       packageCache: {},
       fullPaths: true
