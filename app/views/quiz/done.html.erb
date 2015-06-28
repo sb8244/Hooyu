@@ -1,4 +1,4 @@
 <section id="done-container">
   <header>Nice! You know all <%= @stats[:total] %> people!</header>
-  <%= link_to "Keep Going", root_path(continue: true) %>
+  <%= link_to "Keep Going", root_path(continue: true) if current_person.knows.any? %>
 </section>
