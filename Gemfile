@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 
+gem 'puma'
+gem 'foreman'
+
 group :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'vcr'
@@ -22,11 +25,12 @@ group :development, :test do
 end
 
 # db
-gem 'sqlite3'
+gem 'pg'
 gem 'neo4j', '~> 4.1.1'
 
 # env
 gem 'dotenv-rails'
+gem 'rails_12factor', group: :production
 
 gem 'responders', '~> 2.0'
 
