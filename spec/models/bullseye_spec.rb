@@ -55,6 +55,14 @@ RSpec.describe Bullseye do
       it "is nil" do
         expect(subject.call).to eq(nil)
       end
+
+      context "with force" do
+        subject { Bullseye.new(person, force: true) }
+
+        it "is a person" do
+          expect(subject.call).to be_a(Person)
+        end
+      end
     end
   end
 end

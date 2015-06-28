@@ -1,12 +1,13 @@
 class Bullseye
-  attr_reader :person
+  attr_reader :person, :force
 
-  def initialize(person)
+  def initialize(person, force: false)
     @person = person
+    @force = force
   end
 
   def call
-    second_degree_only || random_not_connected || can_connect_more
+    second_degree_only || random_not_connected || can_connect_more || totally_random
   end
 
   private
@@ -40,5 +41,14 @@ class Bullseye
         return(:match).
         params(max_weight: PersonConnection::MAX_WEIGHT).
         first.try!(:match)
+  end
+
+  def totally_random
+    return unless force
+
+    Person.
+        where("result_person.uuid <> {uuid}").
+        params(uuid: person.uuid).
+        first
   end
 end
