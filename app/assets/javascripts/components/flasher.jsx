@@ -5,7 +5,6 @@ class Flasher extends React.Component {
   componentDidMount() {
     this.refs.notification.addNotification({
       message: this.props.message,
-      level: 'success',
       position: "bc",
       level: this.props.success ? "success" : "error"
     });
