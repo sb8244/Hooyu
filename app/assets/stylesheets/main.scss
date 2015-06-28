@@ -27,6 +27,16 @@
   }
 }
 
+#stats {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+
+  padding: 5px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 #question-container {
   @include make-row();
   height: 60%;

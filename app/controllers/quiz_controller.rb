@@ -1,5 +1,7 @@
 class QuizController < ApplicationController
   def show
+    @stats = { knows: current_person.knows.where("rel0.weight = 2").count, total: Person.count - 1 }
+
     return render "done" if target.nil? && !params[:continue]
 
     @image_src = quiz.image
