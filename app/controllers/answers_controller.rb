@@ -25,6 +25,7 @@ class AnswersController < ApplicationController
 
   def handle_wrong_answer(from, to, correct_answer)
     flash[:error] = "Not quite...The answer is #{correct_answer}."
+    from.connect_to(to, weight: question_number - 1)
     reset_quiz_flow
   end
 

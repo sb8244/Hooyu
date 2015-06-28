@@ -111,6 +111,29 @@ RSpec.describe AnswersController, :type => :controller do
             post :create, answer: "wrong"
           }.to change{ flash[:error] }.from(nil).to("Not quite...The answer is test.")
         end
+
+        context "with an existing connection" do
+          before(:each) { session[:question] = 1 }
+          before(:each) { person.connect_to(people[0], weight: 1) }
+
+          it "removes the connection" do
+            expect {
+              post :create, answer: "wrong"
+            }.to change{ person.knows.count }.from(1).to(0)
+          end
+        end
+
+        context "with an existing connection on question 2" do
+          before(:each) { session[:question] = 2 }
+          before(:each) { person.connect_to(people[0], weight: 2) }
+
+          it "doesn't remove the connection" do
+            expect {
+              post :create, answer: "wrong"
+            }.not_to change{ person.knows.count }.from(1)
+            expect(person.rels.first.weight).to eq(1)
+          end
+        end
       end
     end
   end
