@@ -1,5 +1,6 @@
 class Person
   include Neo4j::ActiveNode
+  include Neo4jrb::Paperclip
 
   property :updated_at
   property :created_at
@@ -8,11 +9,14 @@ class Person
   property :email, type: String
   property :image_url, type: String
   property :department, type: String
+  property :user_id, type: Integer
+  has_neo4jrb_attached_file :profile_image
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :department, presence: true
   validates :email, presence: true
+  validates_attachment_content_type :profile_image, content_type: ["image/jpg", "image/jpeg", "image/png"]
 
   has_many :out, :knows, rel_class: PersonConnection, model_class: self
   has_many :in, :known_by, rel_class: PersonConnection, model_class: self

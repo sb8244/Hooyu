@@ -38,5 +38,17 @@ module Hooyu
     config.neo4j.session_options = { basic_auth: { username: ENV['NEO4J_USER'], password: ENV['NEO4J_PASSWORD']} }
     config.neo4j.session_type = :server_db
     config.neo4j.session_path = ENV['NEO4J_URL']
+
+    config.paperclip_defaults = {
+        storage: :s3,
+        url: ':s3_domain_url',
+        path: ':class/:attachment/:hash/:style.:extension',
+        hash_secret: ENV["HASH_SECRET"],
+        s3_credentials: {
+            bucket: ENV['S3_BUCKET_NAME'],
+            access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+            secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+        }
+    }
   end
 end

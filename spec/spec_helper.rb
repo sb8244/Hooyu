@@ -1,3 +1,19 @@
+require 'vcr'
+require 'webmock/rspec'
+
+VCR.configure do |c|
+  c.cassette_library_dir = "spec/cassettes"
+  c.hook_into :webmock
+  c.ignore_localhost = true
+
+  c.filter_sensitive_data("<AWS_ACCESS_KEY>") { ENV["AWS_ACCESS_KEY_ID"] }
+  c.filter_sensitive_data("<AWS_SECRET_ACCESS_KEY>") { ENV["AWS_SECRET_ACCESS_KEY"] }
+  c.filter_sensitive_data("<GOOGLE_CLIENT_SECRET>") { ENV["GOOGLE_CLIENT_SECRET"] }
+
+  c.default_cassette_options  = { :record => :once }
+  c.configure_rspec_metadata!
+end
+
 RSpec.configure do |config|
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

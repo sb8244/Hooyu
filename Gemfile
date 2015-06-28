@@ -5,6 +5,8 @@ gem 'rails', '4.2.1'
 
 group :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do
@@ -30,4 +32,8 @@ gem 'responders', '~> 2.0'
 
 # Authentication
 gem 'omniauth'
-gem 'omniauth-google_oauth2'
+gem 'omniauth-google-oauth2'
+gem 'devise'
+
+gem "neo4jrb-paperclip", github: 'subvertallchris/neo4jrb-paperclip', require: "neo4jrb_paperclip"
+gem "aws-sdk"
