@@ -37,7 +37,7 @@ RSpec.describe QuizController, :type => :controller do
       it "sets the answer correctly" do
         expect {
           get :show
-        }.to change{ session[:correct_answer] }.from(nil).to(people[0].department)
+        }.to change{ session[:correct_answer] }.from(nil).to(people[0].department.titleize)
       end
     end
 
