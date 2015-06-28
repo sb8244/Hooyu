@@ -5,10 +5,20 @@ class Question::Department < Question
 
   # TODO: Pick 4 random departments
   def choices
-    ["Engineering", "Sales", "Customer Support", "G&A"]
+    ([answer] | all_departments | defaults).take(4).shuffle
   end
 
   def answer
-    target.department
+    target.department.titleize
+  end
+
+  private
+
+  def all_departments
+    @all_departments ||= Person.query_as(:person).pluck("DISTINCT person.department").map(&:titleize)
+  end
+
+  def defaults
+    ["Engineering", "Sales", "Client Success", "General & Administrative"]
   end
 end
