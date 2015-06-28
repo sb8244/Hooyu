@@ -4,8 +4,8 @@
   <title>Hooyu</title>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
-  <link rel="stylesheet" href="/stylesheets/application.css" media="all" />
-  <script src="/javascripts/application.js"></script>
+  <%= stylesheet_link_tag "/stylesheets/application.css", media: :all %>
+  <%= javascript_include_tag "/javascripts/application.js" %>
 
   <%= csrf_meta_tags %>
 </head>
