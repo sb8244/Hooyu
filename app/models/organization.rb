@@ -5,10 +5,11 @@ class Organization
   property :created_at
   property :name, type: String
   property :domain, type: String
+  property :available_departments
 
   has_many :in, :people, unique: true
 
   def departments
-    people.pluck("DISTINCT result_people.department").map(&:titleize)
+    available_departments.map(&:titleize)
   end
 end
