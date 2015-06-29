@@ -16,8 +16,8 @@ class Bullseye
     Person.
         where(uuid: person.uuid).
         query_as(:person).
-        match("person-[r:knows*2]-match").
-        where("NOT person-[:knows]-match").
+        match("person-[r:knows*2]->match").
+        where("NOT person-[:knows]->match").
         where("person <> match").
         return(:match).
         first.try!(:match)
@@ -36,7 +36,7 @@ class Bullseye
     Person.
         where(uuid: person.uuid).
         query_as(:person).
-        match("person-[r:knows]-match").
+        match("person-[r:knows]->match").
         where("person <> match").
         where("r.weight < {max_weight}").
         return(:match).
