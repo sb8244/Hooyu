@@ -24,11 +24,12 @@ class Bullseye
   end
 
   def random_not_connected
-    Person.
-        where("result_person.uuid <> {uuid}").
-        where("NOT result_person-[:knows]-()").
-        params(uuid: person.uuid).
-        first
+    Neo4j::Core::Query.new.match(me: Person, target: Person).
+      where(me: { uuid: person.uuid }).
+      where("NOT (me)-[:knows]->(target)").
+      where("target <> me").
+      with("target, rand() as number ORDER BY number").
+      return(:target).first.try!(:target)
   end
 
   def can_connect_more

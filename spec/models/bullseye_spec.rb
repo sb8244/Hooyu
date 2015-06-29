@@ -67,4 +67,14 @@ RSpec.describe Bullseye do
       end
     end
   end
+
+  context "with people that know me but I don't know anyone" do
+    before(:each) {
+      people.each{ |p| p.connect_to(person, weight: PersonConnection::MAX_WEIGHT) }
+    }
+
+    it "is a person" do
+      expect(subject.call).to be_a(Person)
+    end
+  end
 end
