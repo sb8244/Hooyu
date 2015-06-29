@@ -47,6 +47,7 @@ module Hooyu
         url: ':s3_domain_url',
         path: ':class/:attachment/:hash/:style.:extension',
         hash_secret: ENV["HASH_SECRET"],
+        s3_protocol: :https,
         s3_credentials: {
             bucket: ENV['S3_BUCKET_NAME'],
             access_key_id: ENV['AWS_ACCESS_KEY_ID'],
