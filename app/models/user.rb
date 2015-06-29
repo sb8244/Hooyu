@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   def self.from_omniauth(access_token)
     data = access_token.info
 
-    User.where(email: data["email"]).first_or_create!(
+    User.where(email: data["email"].downcase).first_or_create!(
        first_name: data["first_name"],
        last_name: data["last_name"]
     )
