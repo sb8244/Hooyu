@@ -9,21 +9,24 @@ html, body {
   width: 100%;
 }
 
-body:before {
-  $blur: 8px;
+body:before, body:after {
   content: "";
   position: fixed;
-
-  // Ensure that the blur doesn't cause the edges to fade within view
-  left: -$blur*4;
-  right: -$blur*4;
-  top: -$blur*4;
-  bottom: -$blur*4;
-  z-index: -1;
-
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   display: block;
   background-image: url('/images/background.jpg');
+}
 
+body:before {
+  z-index: -2;
+}
+
+body:after {
+  $blur: 8px;
+  z-index: -1;
   -webkit-filter: blur($blur);
   -moz-filter: blur($blur);
   -o-filter: blur($blur);

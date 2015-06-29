@@ -72,7 +72,7 @@ function bundleShare(b) {
 
 gulp.task('default', ['compile-scss', 'js']);
 
-gulp.task('watch', ['watch-scss', 'watch-js']);
+gulp.task('watch', ['compile-scss', 'watch-scss', 'watch-js']);
 
 gulp.task('watch-scss', function() {
   gulp.watch('app/assets/stylesheets/**/*.scss', ['compile-scss']);
