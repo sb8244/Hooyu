@@ -15,10 +15,10 @@ body:before {
   position: fixed;
 
   // Ensure that the blur doesn't cause the edges to fade within view
-  left: -$blur*2;
-  right: -$blur*2;
-  top: -$blur*2;
-  bottom: -$blur*2;
+  left: -$blur*4;
+  right: -$blur*4;
+  top: -$blur*4;
+  bottom: -$blur*4;
   z-index: -1;
 
   display: block;
