@@ -23,7 +23,7 @@ class Person
   has_many :out, :organizations, unique: true
 
   def connect_to(person, weight: 1)
-    existing_connection = self.rels(between: person, type: "knows").first
+    existing_connection = self.rels(dir: :outgoing, between: person, type: "knows").first
 
     if existing_connection
       if weight > 0
