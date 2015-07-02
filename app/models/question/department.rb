@@ -18,6 +18,6 @@ class Question::Department < Question
   end
 
   def defaults
-    ["Engineering", "Sales", "Client Success", "General & Administrative"]
+    ["Product Dev.", "Sales", "Client Services", "Other"]
   end
 end
