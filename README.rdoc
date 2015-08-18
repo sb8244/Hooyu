@@ -1,28 +1,14 @@
-== README
+== Hooyu
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hooyu is a way to connect a hyperlocal community (like your company) by matching faces to names / departments.
 
-Things you may want to cover:
+Built using Ruby on Rails and React, the standard RoR project guidelines are followed (using foreman for process management). Postgres and Neo4j are used for data-stores, with the main game logic stored in Neo4j.
 
-* Ruby version
+== Reception
 
-* System dependencies
+The product works very simply, but requires effort to maintain a userbase over a long period of time, because people tend to not go back. Making it a part of an onboarding process would be easiest.
 
-* Configuration
+== Cool Ideas
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* LinkedIn Profile Integration
+* Setup meet&greet through it. Take someone new to your company out to coffee
