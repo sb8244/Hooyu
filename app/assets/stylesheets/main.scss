@@ -14,7 +14,6 @@
 #question-container {
   @include make-row();
   height: 60%;
-  overflow: hidden;
 
   header, ul {
     @include make-xs-column(12);
