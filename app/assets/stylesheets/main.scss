@@ -98,11 +98,10 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-#logout {
+#logout, #settings {
   z-index: 1000;
   position: absolute;
   top: 15px;
-  left: 15px;
 
   padding: 5px;
   color: white;
@@ -111,6 +110,14 @@
   a {
     color: white;
   }
+}
+
+#logout {
+  left: 15px;
+}
+
+#settings {
+  left: 80px;
 }
 
 // Generic Helpers

@@ -32,8 +32,8 @@ class PersonSetup extends React.Component {
     this.setState({last_name: event.target.value});
   }
 
-  setDepartment(val) {
-    this.setState({department: val});
+  setDepartment(event) {
+    this.setState({department: event.target.value});
   }
 
   handleFile(event) {
@@ -51,6 +51,7 @@ class PersonSetup extends React.Component {
 
   render() {
     var title = this.props.existing ? "Confirm Information" : "Setup Account";
+    var buttonText = this.props.existing ? "Save & Continue" : "Save & Get Started";
     var imageRequired = !this.props.details.image_url;
 
     return (
@@ -89,7 +90,11 @@ class PersonSetup extends React.Component {
 
                 <div className="form-group">
                   <label htmlFor="department">Department</label>
-                  <Select name="department" value={this.state.department} options={this.departmentOptions()} onChange={this.setDepartment} />
+                  <select className="form-control" name="department"
+                          required={true} value={this.state.department} onChange={this.setDepartment}>
+                    <option value=""></option>
+                    { this.departmentOptions().map(this.renderOption) }
+                  </select>
                 </div>
 
                 <div className="form-group">
@@ -98,13 +103,19 @@ class PersonSetup extends React.Component {
                   <img src={this.state.dataUri} className="setup-image" />
                 </div>
 
-                <button className="btn btn-primary btn-block">Save & Get Started</button>
+                <button className="btn btn-primary btn-block">{ buttonText }</button>
               </form>
             </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  renderOption(option, i) {
+    return (
+      <option key={i} value={option.value}>{option.label}</option>
+    )
   }
 
   departmentOptions() {

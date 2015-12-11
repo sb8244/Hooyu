@@ -16,6 +16,7 @@
     <% end %>
 
     <%= react_component "Logout", url: destroy_user_session_path if current_user %>
+    <%= react_component "Settings", url: setup_path %>
 
     <%= yield %>
   </div>
