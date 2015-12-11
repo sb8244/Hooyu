@@ -13,7 +13,8 @@ class PersonSetup extends React.Component {
       organization_name: props.details.organization_name,
       first_name: props.details.first_name,
       last_name: props.details.last_name,
-      dataUri: defaultUri,
+      department: props.details.department,
+      dataUri: props.details.image_url ? props.details.image_url : defaultUri,
       token: $('meta[name="csrf-token"]').attr('content')
     };
 
@@ -49,12 +50,15 @@ class PersonSetup extends React.Component {
   }
 
   render() {
+    var title = this.props.existing ? "Confirm Information" : "Setup Account";
+    var imageRequired = !this.props.details.image_url;
+
     return (
       <div className="row">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
           <div className="panel panel-default">
             <div className="panel-heading">
-              <div className="panel-title">Setup Account</div>
+              <div className="panel-title">{ title }</div>
             </div>
 
             <div className="panel-body">
@@ -90,7 +94,7 @@ class PersonSetup extends React.Component {
 
                 <div className="form-group">
                   <label htmlFor="profile_image">Clean, Recognizable Image of You</label>
-                  <input type="file" name="profile_image" id="profile_image" onChange={this.handleFile} placeholder="X" required={true} />
+                  <input type="file" name="profile_image" id="profile_image" onChange={this.handleFile} placeholder="X" required={imageRequired} />
                   <img src={this.state.dataUri} className="setup-image" />
                 </div>
 

@@ -1,17 +1,17 @@
 class SetupsController < ApplicationController
   before_filter :ensure_user, only: [:show]
-  before_filter :prevent_already_setup, only: [:show]
 
   def show
     return redirect_to no_org_setup_path unless organization
 
     @departments = organization.departments
     @details = {
-        first_name: current_user.first_name,
-        last_name: current_user.last_name,
-        email: current_user.email,
-        organization_name: organization.name,
-        department: nil
+      email: current_user.email,
+      organization_name: organization.name,
+      first_name: current_person.try!(:first_name) || current_user.first_name,
+      last_name: current_person.try!(:last_name) || current_user.last_name,
+      image_url: current_person.try!(:profile_image).try!(:url),
+      department: current_person.try!(:department)
     }
   end
 
@@ -19,7 +19,11 @@ class SetupsController < ApplicationController
   end
 
   def create
-    person = Person.create!(person_params)
+    person = if current_person
+      current_person.tap { |person| person.update!(person_params) }
+    else
+      Person.create!(person_params)
+    end
 
     if person.persisted?
       redirect_to root_path
@@ -37,6 +41,7 @@ class SetupsController < ApplicationController
   def person_params
     params.permit(:first_name, :last_name, :email, :profile_image, :department).tap do |p|
       p[:user_id] = current_user.id
+      p.delete(:profile_image) unless p[:profile_image]
     end
   end
 
