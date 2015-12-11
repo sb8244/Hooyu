@@ -16,6 +16,7 @@ class Person
   validates :last_name, presence: true
   validates :department, presence: true
   validates :email, presence: true
+  validates :profile_image, presence: true
   validates_attachment_content_type :profile_image, content_type: ["image/jpg", "image/jpeg", "image/png"]
 
   has_many :out, :knows, rel_class: PersonConnection, model_class: self
