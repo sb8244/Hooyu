@@ -16,4 +16,8 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback" => "oauth#create"
 
   root 'quiz#show'
+
+  namespace :admin do
+    resources :people, only: [:index]
+  end
 end
