@@ -1,0 +1,23 @@
+<h1>People Management</h1>
+<p>Here, you can manage people</p>
+<table class="people-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+    <tr>
+      <td><%= "#{person.first_name} #{person.last_name}" %></td>
+      <td><%= person.email %></td>
+      <td><%= person.department %></td>
+      <td> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

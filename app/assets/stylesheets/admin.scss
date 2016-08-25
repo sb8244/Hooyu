@@ -1,0 +1,42 @@
+$table-header-font-weight:      400;
+$table-header-font-color:       #757575;
+
+$table-cell-padding:            1.6rem;
+$table-condensed-cell-padding:  $table-cell-padding/2;
+
+
+$table-bg:                      #fff;
+$table-bg-accent:               #f5f5f5;
+$table-bg-hover:                rgba(0,0,0,.12);
+$table-bg-active:               $table-bg-hover;
+$table-border-color:            #e0e0e0;
+
+$opacity:                       .85;
+
+p {
+  opacity: $opacity;
+  background-color: $table-bg;
+  padding: $table-cell-padding;
+}
+
+table.people-table {
+  opacity: $opacity;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  background-color: $table-bg;
+
+  text-align: left;
+  td {
+    padding: $table-cell-padding;
+    vertical-align: top;
+    border-top: 0;
+   }
+  thead > tr > th {
+    font-weight: $table-header-font-weight;
+    color: $table-header-font-color;
+    vertical-align: bottom;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    border-top: 1px solid rgba(0,0,0,.12);
+  }
+}
